@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>GPIMA/16º BIMtz</title>
+                <style type="text/css">  
+                    .ui-layout-north {
+                        z-index:20 !important;
+                        overflow:visible !important;
+                        
+                    }
+
+                    .ui-layout-north ui-layout-west .ui-layout-unit-content {
+                        overflow:visible !important;
+                    }
+
+                    body {
+                        background-color: #FFFFFF;
+                    }
+                    .ui-widget, .ui-widget .ui-widget {
+                        font-size: 10px !important;
+                                               
+                    }
+                    
+                     h1,h3 {       
+                     margin: 0;
+                     padding: auto;
+                    }             
+                </style>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <p:layout fullPage="true">                
+                <p:layoutUnit position="center"  style="border-style: none">                     
+                    <h:form id="formLogin" >        
+                        <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();">
+                            <div id="pnr" style="float:left; padding: auto;margin-left: 60px"> 
+                                <p:graphicImage url="/img/pnr.png" width="60px" height="60px" />
+                            </div>
+                        </h:outputLink>
+                        <div style="float:left; padding: 1.5em"> 
+                            <h1>Fiscalização Administrativa/16º BIMtz</h1>
+                            <h3>Gestão de Patrimônio Imobiliário e Meio Ambiente</h3>
+                        </div>
+
+                        <p:dialog header="SPIMA/16ºBIMtz - Login" widgetVar="dlg" resizable="false">
+                            <p:growl life="3000" id="messages" showDetail="true" autoUpdate="true" />
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:outputLabel for="user" value="Usuário" />
+                                <p:inputText id="user" value="#{loginBean.user}" />
+                                <p:outputLabel for="senha" value="Senha" />
+                                <p:password id="senha" value="#{loginBean.senha}" />
+                                <f:facet name="footer">
+                                    <p:commandButton value="Entrar" action="#{loginBean.entrar}" update="@form" />
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:form>
+                </p:layoutUnit>              
+            
+            <p:layoutUnit position="south" size="21" style="margin: auto; border-style: none">  
+                <p:outputLabel style="float: right"><address>Written by 2º Ten QAO<a href="mailto:luciolemos.j5@gmail.com"> <b>L</b>úcio Flávio <b>Lemos</b></a></address></p:outputLabel>               
+            </p:layoutUnit>
+                
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

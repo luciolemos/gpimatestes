@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template_model.xhtml">      
+
+    <ui:define name="conteudo">
+
+        <h:form id="formCadastroNaturezas" acceptcharset="UTF-8">
+            <p:growl id="messages" showDetail="false" autoUpdate="true" sticky="true"/> 
+            <p:panel header="Cadastrar Função" style="margin-bottom:5px">
+                 <h:panelGrid columns="2" cellpadding="2">
+                    <h:outputLabel value="Função do militar" for="funcao" />
+                    <p:inputText id="funcao" label="Nome" size="40" value="#{funcaoBean.funcao.designacaofuncao}"/>
+
+                    <h:outputLabel value="Descrição da função" for="descricao" />
+                    <p:inputText id="descricao" size="80" value="#{funcaoBean.funcao.descricaofuncao}"/>
+                    
+                <p:commandButton id="btn_reset" value="Limpar" type="reset"/>
+                <p:commandButton value="Salvar" action="#{funcaoBean.salvar}" process="@form" update="@form: formListaNaturezas" /> 
+              
+                  </h:panelGrid> 
+            </p:panel>
+
+        </h:form>          
+        <h:form id="formListaNaturezas" acceptcharset="UTF-8">            
+            <p:outputPanel id="funcoes">
+                <p:dataTable value="#{funcaoBean.funcoes}" var="funcao" emptyMessage="Nenhuma tipo cadastrado">
+                    
+                    <p:column headerText="Cod" width="5">
+                        <h:outputLabel value="#{funcao.id}" />
+                    </p:column>
+
+                    <p:column headerText="Função" width="100">
+                        <h:outputLabel value="#{funcao.designacaofuncao}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição" width="150">
+                        <h:outputLabel value="#{funcao.descricaofuncao}" />
+                    </p:column>
+
+                    <p:column headerText="Editar" width="10">
+                        <h:commandLink value="editar" action="#{funcaoBean.editar(funcao)}">
+                            <f:ajax execute="@form" render="@form: formCadastroNaturezas" />
+                        </h:commandLink>
+                    </p:column>
+
+                    <p:column headerText="Excluir" width="10">
+                        <h:commandLink value="excluir" action="#{funcaoBean.remover(funcao)}">
+                            <f:ajax execute="@form" render="@form: formListaNaturezas" />
+                        </h:commandLink>
+
+                    </p:column>
+
+                </p:dataTable>
+            </p:outputPanel>
+        </h:form>
+            
+
+    </ui:define>  
+
+</ui:composition>
+
+
+
+
+
+

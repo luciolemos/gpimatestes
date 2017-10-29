@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template_model.xhtml">      
+
+    <ui:define name="conteudo">
+
+        <h:form id="formCadastroCategorias" acceptcharset="UTF-8">
+            <p:growl id="messages" showDetail="false" autoUpdate="true" sticky="true"/> 
+            <p:panel header="Cadastrar subunidades" style="margin-bottom:5px">
+                 <h:panelGrid columns="2" cellpadding="2">
+                    <h:outputLabel value="Subunidade" for="subunidade" />
+                    <p:inputText id="subunidade" label="Subunidade" size="40" value="#{subunidadeBean.subunidade.su}"/>
+
+                    <h:outputLabel value="Sigla da SU" for="sigla" />
+                    <p:inputText id="sigla" size="80" value="#{subunidadeBean.subunidade.sigla}" placeholder="Abreviatura da SU" />
+                    
+                <p:commandButton id="btn_reset" value="Limpar" type="reset"/>
+                <p:commandButton value="Salvar" action="#{subunidadeBean.salvar}" process="@form" update="@form: formListaCategorias" /> 
+              
+                  </h:panelGrid> 
+            </p:panel>
+
+        </h:form>          
+        <h:form id="formListaCategorias" acceptcharset="UTF-8">            
+            <p:outputPanel id="subunidade">
+                <p:dataTable value="#{subunidadeBean.subunidades}" var="subunidade" emptyMessage="Nenhuma subunidade cadastrada">
+                    
+<!--                    
+                    <f:facet name="header">
+                        Lista de categorias disponíveis
+                    </f:facet>-->
+
+                    <p:column headerText="Cod" width="5">
+                        <h:outputLabel value="#{subunidade.id}" />
+                    </p:column>
+
+                    <p:column headerText="Subunidade" width="100">
+                        <h:outputLabel value="#{subunidade.su}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição da subunidade" width="150">
+                        <h:outputLabel value="#{subunidade.sigla}" />
+                    </p:column>
+
+                    <p:column headerText="Editar" width="10">
+                        <h:commandLink value="editar" action="#{subunidadeBean.editar(subunidade)}">
+                            <f:ajax execute="@form" render="@form: formCadastroCategorias" />
+                        </h:commandLink>
+                    </p:column>
+
+                    <p:column headerText="Excluir" width="10">
+                        <h:commandLink value="excluir" action="#{subunidadeBean.remover(subunidade)}">
+                            <f:ajax execute="@form" render="@form: formListaCategorias" />
+                        </h:commandLink>
+
+                    </p:column>
+
+                </p:dataTable>
+            </p:outputPanel>
+        </h:form>
+            
+
+    </ui:define>  
+
+</ui:composition>
+
+
+
+
+
+

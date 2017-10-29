@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template_model.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="conteudo">  
+        <h:form id="formVenda">
+            <p:panel header="Distribuir PNR" style="margin-bottom:5px">
+                 <h:panelGrid columns="2" cellpadding="2">
+                    <p:outputLabel for="dataocupacao" value="Data de ocupação" />
+                    <p:calendar id="dataocupacao" value="#{distribuicaoBean.distribuicao.dataocupacao.time}" locale="pt_BR" pattern="dd/MM/yyyy" showOn="button" />
+
+                    <p:outputLabel for="imovel" value="Endereço do imóvel" />
+                    <p:autoComplete id="imovel" size="90" value="#{distribuicaoBean.imovel}" completeMethod="#{distribuicaoBean.getImoveisPorNome(nome)}" var="imovel" itemLabel="#{imovelBean.imovel.endereco}" itemValue="#{imovel}" converter="imovelConverter" minQueryLength="3" placeholder="Informe o endereço."/>
+                                                           
+                    <p:outputLabel for="cliente" value="Nome do militar" />
+                    <p:autoComplete id="cliente" size="70" value="#{distribuicaoBean.militar}" completeMethod="#{distribuicaoBean.getMilitaresPorCpf(cpf)}" var="militar" itemLabel="#{militarBean.militar.nome}" itemValue="#{cliente}" converter="militarConverter" minQueryLength="3" placeholder="Informe o cpf do militar."/>
+                    
+                    <p:commandButton value="Distribuir PNR" action="#{distribuicaoBean.adicionarImovel()}" process="@this imovel" update="@form" />
+                    <p:commandButton value="Salvar" action="#{distribuicaoBean.salvar}" process="@form" update="@form" />
+                </h:panelGrid>
+            </p:panel>
+            <h:form id="formListaProdutos">
+                <p:outputPanel>
+                    <p:dataTable id="tabelaProdutos" value="#{distribuicaoBean.distribuicao.imoveis}" var="imovel" emptyMessage="Nenhum PNR distribuído">                        
+                        
+                        <p:column headerText="Cod" width="5">
+                            <h:outputText value="#{imovel.id}" />
+                        </p:column>
+
+                        <p:column headerText="Endereço do imóvel" width="100">
+                            <h:outputText value="#{imovel.endereco}" />
+                        </p:column>    
+                        
+                          <p:column headerText="Nome" width="100">
+                              <h:outputText value="#{militar.nome}" />
+                        </p:column>  
+                    </p:dataTable>
+                </p:outputPanel>
+                
+            </h:form>
+        </h:form>
+    </ui:define>     
+</ui:composition>

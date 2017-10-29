@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template_model.xhtml">
+
+    <ui:define name="conteudo">        
+        <h:form id="formCadastroProduto" acceptcharset="UTF-8" >
+            <p:growl id="messages" showDetail="false" autoUpdate="true" sticky="true"/>             
+            <p:panel header="Cadastro de Pessoal" style="margin-bottom:5px" >  
+                <h:panelGrid columns="6" cellpadding="2" > 
+                    <p:outputLabel for="postograd" value="Posto/Grad" />
+                    <p:selectOneMenu id="postograd" value="#{militarBean.militar.posto}" converter="postoConverter" placeholder="Selecione">
+                        <f:selectItem/>
+                        <f:selectItems value="#{militarBean.postos}" var="postograd" itemLabel="#{postograd.postograd}" itemValue="#{postograd}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="nome" value="Nome do militar" />
+                    <p:inputText id="nome" size="50" value="#{militarBean.militar.nome}" required="true"/>
+
+                    <p:outputLabel for="nomeguerra" value="Nome de guerra" />
+                    <p:inputText id="nomeguerra" size="25" value="#{militarBean.militar.nomeguerra}"/>
+
+                    <p:outputLabel for="arma" value="Arma/Quadro/Serviço" />
+                    <p:selectOneMenu id="arma" value="#{militarBean.militar.arma}" converter="armaConverter"  style="width: 165px" placeholder="Selecione">
+                        <f:selectItem/>
+                        <f:selectItems value="#{militarBean.armas}" var="arma" itemLabel="#{arma.armaquadroservico}" itemValue="#{arma}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="su" value="Subunidade" />
+                    <p:selectOneMenu id="su" value="#{militarBean.militar.subunidade}" converter="subunidadeConverter"  style="width: 165px" placeholder="Selecione">
+                        <f:selectItem/>
+                        <f:selectItems value="#{militarBean.subunidades}" var="subunidade" itemLabel="#{subunidade.su}" itemValue="#{arma}" />
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="CPF" for="cpf" />
+                    <p:inputMask id="cpf" size="13" value="#{militarBean.militar.cpf}" mask="999.999.999-99" placeholder="Apenas números"/>             
+
+                    <p:outputLabel for="funcao" value="Funcao" />
+                    <p:selectOneMenu id="funcao" value="#{militarBean.militar.funcao}" converter="funcaoConverter" placeholder="Selecione">
+                        <f:selectItem/>
+                        <f:selectItems value="#{militarBean.funcoes}" var="funcao" itemLabel="#{funcao.designacaofuncao}" itemValue="#{funcao}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="sexo" value="Sexo" />
+                    <p:selectOneMenu id="sexo" value="#{militarBean.militar.sexo}" converter="sexoConverter">
+                        <f:selectItem itemLabel="Selecione" itemDisabled="true"/>
+                        <f:selectItems value="#{militarBean.sexos}" var="sexo" itemLabel="#{sexo.tiposexo}" itemValue="#{sexo}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="phone" value="Phone" />
+                    <p:inputMask id="phone" size="14" value="#{militarBean.militar.phone}" mask="(99) 9-9999-9999"/> 
+
+                    <p:outputLabel for="email" value="e-mail do militar"/>
+                    <h:panelGroup>
+                        <p:inputText                                       
+
+                            id="email"
+                            value="#{militarBean.militar.email}"
+                            size="30" 
+                            type="email"
+                            maxlength="50"                                             
+                            validatorMessage="email inválido">
+                            <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/> 
+                        </p:inputText>
+                        <h:message for="email"/> 
+                    </h:panelGroup>
+
+                    <h:outputLabel value="Nascimento:" for="data"/>
+                    <p:calendar 
+                        id="data" 
+                        label="Data Nascimento" 
+                        value="#{militarBean.militar.datanascimento}"
+                        size="10"                             
+                        locale="pt_BR" 
+                        pattern="dd/MM/yyyy" 
+                        showOn="button">
+                        <f:convertDateTime dateStyle="default"/> 
+                    </p:calendar> 
+
+                    <h:outputLabel value="Data de Praça:" for="datapraca"/>
+                    <p:calendar 
+                        id="datapraca" 
+                        label="Data Nascimento" 
+                        value="#{militarBean.militar.datapraca}"
+                        size="10"                             
+                        locale="pt_BR" 
+                        pattern="dd/MM/yyyy" 
+                        showOn="button">
+                        <f:convertDateTime dateStyle="default"/> 
+                    </p:calendar> 
+
+                    <p:outputLabel for="nomepai" value="Nome do pai" />
+                    <p:inputText id="nomepai" size="35" value="#{militarBean.militar.nomepai}"/>
+
+                    <p:outputLabel for="nomemae" value="Nome da mâe" />
+                    <p:inputText id="nomemae" size="50" value="#{militarBean.militar.nomemae}"/>
+
+                </h:panelGrid>
+            </p:panel>
+
+            <p:tabView rendered="false">                
+               <p:tab title="Dados pessoais">
+                    <h:panelGrid columns="6" cellpadding="2"></h:panelGrid>                      
+                </p:tab>
+
+                 <p:tab title="Dados profissionais">
+                    <h:panelGrid columns="2" cellpadding="2" ></h:panelGrid>        
+
+                </p:tab>
+
+                <p:tab title="Dados bancários">
+                    <h:panelGrid columns="2" cellpadding="2"></h:panelGrid>                      
+                </p:tab>                
+            </p:tabView>
+
+            <h:panelGrid columns="2" cellpadding="2">
+                <p:commandButton id="btn_reset" value="Limpar" type="reset"/>
+                <p:commandButton value="Salvar" action="#{militarBean.salvar}" process="@form" update="@form: formListaProdutos" /> 
+            </h:panelGrid> 
+        </h:form>
+
+        <h:form id="formListaProdutos" acceptcharset="UTF-8">
+            <p:outputPanel id="imoveis">
+                <p:dataTable 
+                    id="tabelaProdutos" 
+                    value="#{militarBean.militares}" 
+                    var="militar"                    
+                    emptyMessage="Nenhum PNR cadastrado"
+                    paginator="true" 
+                    rows="100"                     
+                    paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="100,50,25,15,10,5,1">                 
+
+                    <p:columnGroup type="header">                      
+                        <p:row>                          
+                            <p:column headerText="Nome" width="30"/>                            
+                            <p:column headerText="Posto" width="2"/>
+                            <p:column headerText="Arma" width="2"/> 
+                            <p:column headerText="SU" width="2"/> 
+                            <p:column headerText="CPF" width="5"/>
+                            <p:column headerText="Telefone" width="5"/> 
+                            <p:column headerText="Dt Nasc" width="2"/> 
+                            <p:column headerText="Dt Praça" width="2"/> 
+                            <p:column headerText="email" width="3" rendered="false"/> 
+                            <p:column headerText="Editar" width="1"/>
+                            <p:column headerText="Excluir" width="1"/>
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column>
+                        <h:outputText value="#{militar.nome}" />
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.posto.descricaoposto}" />
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.arma.descricaoarma}" />
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.subunidade.sigla}" />
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.cpf}" />
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.phone}" />
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.datanascimento}">
+                            <f:convertDateTime dateStyle="default"/> 
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column>   
+                        <h:outputText value="#{militar.datapraca}">
+                            <f:convertDateTime dateStyle="default"/> 
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column rendered="false">   
+                        <h:outputText value="#{militar.email}">                               
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column>
+                        <h:form>
+                            <h:commandLink value="editar" action="#{militarBean.editar(militar)}" >
+                                <f:ajax execute="@form" render="@form :formCadastroProduto" />
+                            </h:commandLink>
+                        </h:form>
+                    </p:column>
+
+                    <p:column>
+                        <h:form>
+                            <h:commandLink value="excluir" action="#{militarBean.excluir(militar)}">
+                                <f:ajax execute="@form" render="@form :formListaProdutos"/>
+                            </h:commandLink>
+                        </h:form>     
+                    </p:column>
+                </p:dataTable>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>     
+</ui:composition>
